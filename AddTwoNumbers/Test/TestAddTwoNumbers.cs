@@ -82,6 +82,27 @@ namespace Lib.Test
             lres.next.val.Should().Be(8);
         }
 
+        public static IEnumerable<object[]> Data3 =>
+        new List<object[]>
+        {
+            new object[] { new List<int>{5 }, new List<int>{5 }},
+        };
+        [Theory]
+        [MemberData(nameof(Data3))]
+        public void CorrectOutput_WhenAddingWithSingleCarry(List<int> n1, List<int> n2)
+        {
+            // Arrange
+            var l1 = CreateListNode(n1);
+            var l2 = CreateListNode(n2);
+
+            // Act
+            var lres = sln.AddTwoNumbers(l1, l2);
+
+            // Assert
+            lres.val.Should().Be(0);
+            lres.next.val.Should().Be(1);
+        }
+
         [Fact]
         public void ArgumentNullExceptionThrown_WhenBothArgumentIsNull()
         {
