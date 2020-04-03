@@ -1,24 +1,55 @@
-using System;
 using Xunit;
+using Xunit.Abstractions;
+using System.Collections.Generic;
+using System;
 using FluentAssertions;
 
 namespace Lib.Test
 {
     public class UnitTest1
     {
+        private readonly ITestOutputHelper output;
         private Solution sln = new Solution();
-        [Fact]
-        public void CorrectOutput_WhenAddTwoNumbersInvoked()
+
+        public UnitTest1(ITestOutputHelper output)
+        {
+            this.output = output;
+        }
+
+
+        private ListNode CreateListNode(List<int> nodeValues)
+        {
+            ListNode listNode = null;
+            ListNode last = null;
+            foreach(var num in nodeValues)
+            {
+                if (listNode != null)
+                {
+                    var tempNode = new ListNode(num);
+                    last.next = tempNode;
+                    last = tempNode;
+                }
+                else
+                {
+                    listNode = new ListNode(num);
+                    listNode.next = null;
+                    last = listNode;
+                }
+            }
+            return listNode;
+        }
+        public static IEnumerable<object[]> Data1 =>
+        new List<object[]>
+        {
+            new object[] { new List<int>{2, 4, 3 }, new List<int>{5, 6, 4 }},
+        };
+        [Theory]
+        [MemberData(nameof(Data1))]
+        public void CorrectOutput_WhenAddTwoNumbersInvoked(List<int> n1, List<int> n2)
         {
             // Arrange
-            var l1 = new ListNode(2);
-            l1.next = new ListNode(4);
-            l1.next.next = new ListNode(3);
-
-            var l2 = new ListNode(5);
-            l2.next = new ListNode(6);
-            l2.next.next = new ListNode(4);
-
+            var l1 = CreateListNode(n1);
+            var l2 = CreateListNode(n2);
 
             // Act
             var lres = sln.AddTwoNumbers(l1, l2);
@@ -29,34 +60,35 @@ namespace Lib.Test
             lres.next.next.val.Should().Be(8);
         }
 
-        [Fact]
-        public void StringifyCorrect_WhenStringifyingListNode()
+
+        public static IEnumerable<object[]> Data2 =>
+        new List<object[]>
+        {
+            new object[] { new List<int>{1, 8 }, new List<int>{0 }},
+        };
+        [Theory]
+        [MemberData(nameof(Data2))]
+        public void CorrectOutput_WhenAddingZeroAndNumber(List<int> n1, List<int> n2)
         {
             // Arrange
-            var l1 = new ListNode(2);
-            l1.next = new ListNode(4);
-            l1.next.next = new ListNode(3);
+            var l1 = CreateListNode(n1);
+            var l2 = CreateListNode(n2);
 
             // Act
-            var num = sln.NumerifyListNode(l1);
+            var lres = sln.AddTwoNumbers(l1, l2);
 
             // Assert
-            num.Should().Be(243);
+            lres.val.Should().Be(1);
+            lres.next.val.Should().Be(8);
         }
 
         [Fact]
-        public void NodifyCorrect_WhenPassingNumber()
+        public void ArgumentNullExceptionThrown_WhenBothArgumentIsNull()
         {
-            // Arrange
-            int num = 243;
+            Action act = () => sln.AddTwoNumbers(null, null);
 
-            // Act
-            var listNode = sln.ReverseNodeNumber(num);
+            act.Should().ThrowExactly<ArgumentNullException>();
 
-            // Assert
-            listNode.val.Should().Be(3);
-            listNode.next.val.Should().Be(4);
-            listNode.next.next.val.Should().Be(2);
         }
     }
 }

@@ -1,6 +1,5 @@
-﻿using System;
-using System.Text;
-using System.Linq;
+﻿
+using System;
 
 namespace Lib
 {
@@ -13,48 +12,38 @@ namespace Lib
 
     public class Solution
     {
-        public int NumerifyListNode(ListNode l)
-        {
-            if (l == null)
-            {
-                return 0;
-            }
-
-            var result = new StringBuilder();
-            result.Append(l.val);
-
-            while(l.next != null)
-            {
-                l = l.next;
-                result.Append(l.val.ToString());
-            }
-            return Convert.ToInt32(result.ToString());
-        }
-
-        public ListNode ReverseNodeNumber(int number)
-        {
-            ListNode resultListNode = null;
-            foreach(var num in number.ToString().Select(nch => nch - '0'))
-            {
-                if (resultListNode == null)
-                {
-                    resultListNode = new ListNode(num);
-                    resultListNode.next = null;
-                }
-                else
-                {
-                    var tempListNode = new ListNode(num);
-                    tempListNode.next = resultListNode;
-                    resultListNode = tempListNode;
-                }
-            }
-            return resultListNode;
-        }
 
         public ListNode AddTwoNumbers(ListNode l1, ListNode l2)
         {
-            var result = NumerifyListNode(l1) + NumerifyListNode(l2);
-            return ReverseNodeNumber(result);
+            if (l1 == null || l2 == null)
+            {
+                throw new ArgumentNullException("Arguments should not be null");
+            }
+            ListNode result = null;
+            ListNode last = null;
+            var carry = 0;
+            while (l1 != null || l2 != null)
+            {
+                var num = (l1?.val ?? 0) + (l2?.val ?? 0) + carry;
+                carry = (num >= 10) ? 1 : 0;
+                var temp = new ListNode(num % 10);
+                temp.next = null;
+
+                if (result == null)
+                {
+                    result = temp;
+                    last = result;
+                }
+                else
+                {
+                    last.next = temp;
+                    last = temp;
+                }
+                l1 = l1?.next ?? null;
+                l2 = l2?.next ?? null;
+            }
+
+            return result;
         }
     }
 }
