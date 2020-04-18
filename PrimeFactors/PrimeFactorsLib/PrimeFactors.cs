@@ -38,7 +38,7 @@ namespace PrimeFactorsLib
 
             if (number > 1)
             {
-                factors.Add(number);
+                factors.Add(factor);
             }
 
             return factors;
