@@ -8,6 +8,7 @@ namespace PrimeFactorsLib.Test
     {
         [Theory]
         [InlineData(new object[]{ new int[]{1,2,5}, 10})]
+        [InlineData(new object[]{ new int[]{1,2,5}, 20})]
         public void BeCorrect_WhenGettingPrimeFactorsOfNumber(int[] expected, int number)
         {
             // Arrange
