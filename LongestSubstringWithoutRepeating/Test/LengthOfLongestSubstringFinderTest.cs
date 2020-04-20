@@ -12,6 +12,7 @@ namespace Lib.Test
         [InlineData (new object[] {"pwwkew", 3})]
         [InlineData (new object[] {"au", 2})]
         [InlineData (new object[] {"dvdf", 3})]
+        [InlineData (new object[] {"abba", 2})]
         public void ReturnCorrectLengthOfLongestSubstring(string s, int expectedLength)
         {
             // Arrange
