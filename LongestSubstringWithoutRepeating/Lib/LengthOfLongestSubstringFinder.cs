@@ -8,20 +8,19 @@ namespace Lib
     {
         public int LengthOfLongestSubstring(string s)
         {
-            if (s.Length == 0)
-            {
-                return 0;
-            }
-            var length = 0;
-            var sindex = 0;
             var slen = s.Length;
-
-            while ((length + sindex) < slen)
+            if (slen == 0) { return 0; }
+            var charEntryCount = new Dictionary<char, int>();
+            var startIndex = 0;
+            var length = 0;
+            foreach(var indexAndChar in s.Select((value,index) => new {value, index}))
             {
-                var tempSubSet = new HashSet<char>();
-                var sub = string.Join(string.Empty, s.Skip(sindex).TakeWhile(ch => tempSubSet.Add(ch)));
-                length = Math.Max(sub.Count(), length);
-                sindex++;
+                if (charEntryCount.ContainsKey(indexAndChar.value))
+                {
+                    startIndex = Math.Max(charEntryCount[indexAndChar.value] + 1, startIndex);
+                }
+                length = Math.Max(indexAndChar.index - startIndex + 1, length);
+                charEntryCount[indexAndChar.value] = indexAndChar.index;
             }
 
             return length;
