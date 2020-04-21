@@ -2,7 +2,10 @@
 
 namespace Lib
 {
-    public class Class1
+    public class LongestPalindromicSubstringFinder
     {
+        public string LongestPalindrome(string s) {
+            return string.Empty;
+        }
     }
 }
