@@ -6,12 +6,12 @@ namespace Lib
     public class LongestPalindromicSubstringFinder
     {
         public string LongestPalindrome(string s) {
-            if (s.Length == 1)
+            if (s.Length < 2)
             {
                 return s;
             }
             var length = s.Length;
-            var longestPalindrome = string.Empty;
+            var longestPalindrome = string.Join(string.Empty, s.First());
             while (length > 1)
             {
                 var i = 0;
