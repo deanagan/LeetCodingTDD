@@ -7,6 +7,7 @@ namespace Lib.Test
     public class LongestPalindromicSubstringFinderTest
     {
         [Theory]
+        [InlineData(new object[]{"pppp", new string[] {"pppp"}})]
         [InlineData(new object[]{"babad", new string[] {"bab", "aba"}})]
         [InlineData(new object[]{"cbbd", new string[] {"bb"}})]
         public void PalindromSubstringCorrect_WhenReceivingString(string input, string[] possiblePalindromes)
