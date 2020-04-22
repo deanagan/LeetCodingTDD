@@ -10,6 +10,7 @@ namespace Lib.Test
         [InlineData(new object[]{"pppp", new string[] {"pppp"}})]
         [InlineData(new object[]{"babad", new string[] {"bab", "aba"}})]
         [InlineData(new object[]{"cbbd", new string[] {"bb"}})]
+        [InlineData(new object[]{"a", new string[] {"a"}})]
         public void PalindromSubstringCorrect_WhenReceivingString(string input, string[] possiblePalindromes)
         {
             // Arrange
