@@ -5,11 +5,14 @@ namespace Lib
 {
     public class ReverseInteger
     {
+
+        // Requires zero returned if overflow for int occurs
         public int Reverse(int x) {
 
             var s = string.Join(string.Empty, x.ToString().Reverse().Where(ch => Char.IsDigit(ch)));
-
-            return Convert.ToInt32(s) * (x < 0 ? -1 : 1);
+            int result = 0;
+            int.TryParse(s, out result);
+            return result * (x < 0 ? -1 : 1);
         }
     }
 }
