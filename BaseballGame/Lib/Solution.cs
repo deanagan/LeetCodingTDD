@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Lib
 {
@@ -21,9 +20,14 @@ namespace Lib
                     infoStack.Push(dresult);
                     total += dresult;
                 } else if (info == "+") {
-                    var last2total = infoStack.Take(2).Sum();
-                    infoStack.Push(last2total);
-                    total += last2total;
+                    if (infoStack.Count > 0) {
+                        var last = infoStack.Pop();
+                        var last2 = infoStack.Count > 0 ? infoStack.Peek() : 0;
+                        var last2Total = last + last2;
+                        infoStack.Push(last);
+                        infoStack.Push(last2Total);
+                        total += last2Total;
+                    }
                 } else {
                     infoStack.Push(Convert.ToInt32(info));
                     total += infoStack.Peek();
