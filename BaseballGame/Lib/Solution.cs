@@ -21,7 +21,8 @@ namespace Lib
                     infoStack.Push(dresult);
                     total += dresult;
                 } else if (info == "+") {
-                    var last2total = infoStack.Skip(infoStack.Count - 2).Sum();
+                    var last2total = infoStack.Take(2).Sum();
+                    infoStack.Push(last2total);
                     total += last2total;
                 } else {
                     infoStack.Push(Convert.ToInt32(info));
