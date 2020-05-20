@@ -1,2 +1,2 @@
-# LeetCodingTDD
- Some Leet Coding Solutions in a TDD Approach
+# Coding Exercises
+ Some Coding Solutions with a TDD Approach
